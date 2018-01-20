@@ -16,28 +16,19 @@ cd ${INSTALL_DIR}antiword-0.37
 make
 
 echo "Complete!"
-echo "Building runtime environment for antiword int ${BUILD_DIR}"
-
-mkdir -p $BUILD_DIR/.profile.d
-echo "makin ${BUILD_DIR}/.profile.d"
-
-echo "export PATH=\"${ANTIWORD_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/antiword.sh
 
 # pdftotext based on https://github.com/tadas-s/heroku-buildpack-pdftotext
 INSTALL_DIR=$BUILD_DIR/vendor/pdftotext/
+PDFTOTEXT_DIR=$BUILD_DIR
 
 cd $DEFAULT_DIR
 
 echo "Copying pdftotext-${STACK} into ${INSTALL_DIR}"
 
+mkdir -p $INSTALL_DIR
 cp "bin/pdftotext-${STACK}" "${INSTALL_DIR}pdftotext"
 
 echo "Complete!"
-echo "Building runtime environment for pdftotext int ${BUILD_DIR}"
-
-echo "makin ${BUILD_DIR}/.profile.d"
-
-echo "export PATH=\"${INSTALL_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/pdftotext.sh
 
 # unrtf based on https://github.com/andre0799/heroku-buildpack-unrtf and https://github.com/bricel/heroku-buildpack-antiword
 VERSION=unrtf-0.21.9
@@ -51,13 +42,16 @@ echo "Untarring unrtf-0.21.9.tar.gz into ${INSTALL_DIR}"
 mkdir -p $INSTALL_DIR
 tar -zxvf unrtf-0.21.9.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}unrtf-0.21.9
+autoreconf -ivf
 ./configure
 make
 
 echo "Complete!"
-echo "Building runtime environment for unrtf int ${BUILD_DIR}"
+
+# finishing touches
+echo "Building runtime environment in ${BUILD_DIR}"
 
 mkdir -p $BUILD_DIR/.profile.d
-echo "makin ${BUILD_DIR}/.profile.d"
+echo "Making ${BUILD_DIR}/.profile.d"
 
-echo "export PATH=\"${UNRTF_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/unrtf.sh
+echo "export PATH=\"${ANTIWORD_DIR}:${PDFTOTEXT_DIR}:${UNRTF_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/textract.sh
