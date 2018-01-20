@@ -30,7 +30,7 @@ cd $DEFAULT_DIR
 
 echo "Copying pdftotext-${STACK} into ${INSTALL_DIR}"
 
-cp "bin/pdftotext-${STACK}" "$INSTALL_DIR/pdftotext"
+cp "bin/pdftotext-${STACK}" "${INSTALL_DIR}pdftotext"
 
 echo "Complete!"
 echo "Building runtime environment for pdftotext int ${BUILD_DIR}"
@@ -49,7 +49,6 @@ cd $DEFAULT_DIR
 echo "Untarring unrtf-0.21.9.tar.gz into ${INSTALL_DIR}"
 
 mkdir -p $INSTALL_DIR
-cd $BUILD_DIR
 tar -zxvf unrtf-0.21.9.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}unrtf-0.21.9
 ./configure
