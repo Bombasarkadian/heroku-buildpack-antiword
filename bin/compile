@@ -8,6 +8,10 @@ ANTIWORD_DIR=${HOME}/vendor/antiword/antiword-0.37
 
 echo "Untarring antiword-0.37.tar.gz into ${INSTALL_DIR}"
 
+ls -al
+echo `pwd`
+echo $1
+
 mkdir -p $INSTALL_DIR
 cd $BUILD_DIR
 tar -zxvf antiword-0.37.tar.gz -C $INSTALL_DIR
