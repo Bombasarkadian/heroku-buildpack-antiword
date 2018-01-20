@@ -1,6 +1,9 @@
 #!/bin/bash
 BUILD_DIR=$1
 DEFAULT_DIR=`pwd`
+TARGET_DIR=$BUILD_DIR/vendor/bin/
+
+mkdir -p $TARGET_DIR
 
 # antiword based on https://github.com/bricel/heroku-buildpack-antiword
 INSTALL_DIR=$BUILD_DIR/vendor/antiword/
@@ -15,25 +18,23 @@ tar -zxvf antiword-0.37.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}antiword-0.37
 make
 
+cp "${INSTALL_DIR}antiword-0.37/antiword" "${TARGET_DIR}antiword"
+rm -rf ${INSTALL_DIR}
 echo "Complete!"
 
 # pdftotext based on https://github.com/tadas-s/heroku-buildpack-pdftotext
-INSTALL_DIR=$BUILD_DIR/vendor/pdftotext/
-PDFTOTEXT_DIR=$BUILD_DIR
-
 cd $DEFAULT_DIR
 
-echo "Copying pdftotext-${STACK} into ${INSTALL_DIR}"
+echo "Copying pdftotext-${STACK} into ${TARGET_DIR}"
 
-mkdir -p $INSTALL_DIR
-cp "bin/pdftotext-${STACK}" "${INSTALL_DIR}pdftotext"
+cp "bin/pdftotext-${STACK}" "${TARGET_DIR}pdftotext"
 
 echo "Complete!"
 
 # unrtf based on https://github.com/andre0799/heroku-buildpack-unrtf and https://github.com/bricel/heroku-buildpack-antiword
-VERSION=unrtf-0.21.9
 INSTALL_DIR=$BUILD_DIR/vendor/unrtf/
 UNRTF_DIR=${HOME}/vendor/unrtf/unrtf-0.21.9
+BIN_DIR=${INSTALL_DIR}bin
 
 cd $DEFAULT_DIR
 
@@ -42,10 +43,14 @@ echo "Untarring unrtf-0.21.9.tar.gz into ${INSTALL_DIR}"
 mkdir -p $INSTALL_DIR
 tar -zxvf unrtf-0.21.9.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}unrtf-0.21.9
+aclocal
+automake --add-missing
 autoreconf -ivf
-./configure
-make
+./configure --prefix=${TARGET_DIR}
+make install-strip
 
+cp "${INSTALL_DIR}unrtf-0.21.9/src/antiword" "${TARGET_DIR}antiword"
+rm -rf ${INSTALL_DIR}
 echo "Complete!"
 
 # finishing touches
