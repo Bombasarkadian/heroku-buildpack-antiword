@@ -37,4 +37,4 @@ echo "Building runtime environment in ${BUILD_DIR}"
 mkdir -p $BUILD_DIR/.profile.d
 echo "Making ${BUILD_DIR}/.profile.d"
 
-echo "export PATH=\"${TARGET_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/textract.sh
+echo "export PATH=\"/app/vendor/bin:\$PATH\"" > $BUILD_DIR/.profile.d/textract.sh
