@@ -9,6 +9,7 @@ ANTIWORD_DIR=${HOME}/vendor/antiword/antiword-0.37
 echo "Untarring antiword-0.37.tar.gz into ${INSTALL_DIR}"
 
 mkdir -p $INSTALL_DIR
+cd $BUILD_DIR
 tar -zxvf antiword-0.37.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}antiword-0.37
 make
@@ -43,6 +44,7 @@ UNRTF_DIR=${HOME}/vendor/unrtf/unrtf-0.21.9
 echo "Untarring unrtf-0.21.9.tar.gz into ${INSTALL_DIR}"
 
 mkdir -p $INSTALL_DIR
+cd $BUILD_DIR
 tar -zxvf unrtf-0.21.9.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}unrtf-0.21.9
 ./configure
