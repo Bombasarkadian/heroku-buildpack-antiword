@@ -31,30 +31,6 @@ cp "bin/pdftotext-${STACK}" "${TARGET_DIR}pdftotext"
 
 echo "Complete!"
 
-# unrtf based on https://github.com/andre0799/heroku-buildpack-unrtf and https://github.com/bricel/heroku-buildpack-antiword
-INSTALL_DIR=$BUILD_DIR/vendor/unrtf/
-UNRTF_DIR=${INSTALL_DIR}unrtf-0.21.9
-BIN_DIR=${BUILD_DIR}/vendor
-
-cd $DEFAULT_DIR
-
-echo "Untarring unrtf-0.21.9.tar.gz into ${INSTALL_DIR}"
-
-mkdir -p $INSTALL_DIR
-tar -zxvf unrtf-0.21.9.tar.gz -C $INSTALL_DIR
-cd ${UNRTF_DIR}
-aclocal
-automake --add-missing
-autoreconf -ivf
-./configure --prefix=/app/vendor/bin
-make
-make install
-
-mkdir ${BIN_DIR}/config
-cp -R ${BIN_DIR}/share/. ${BIN_DIR}/config
-rm -rf ${INSTALL_DIR}
-echo "Complete!"
-
 # finishing touches
 echo "Building runtime environment in ${BUILD_DIR}"
 
