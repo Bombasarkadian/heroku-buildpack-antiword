@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "textract-buildpack-2"
+echo "textract-buildpack"

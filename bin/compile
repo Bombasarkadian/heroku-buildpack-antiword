@@ -1,19 +1,16 @@
 #!/bin/bash
 BUILD_DIR=$1
+DEFAULT_DIR=`pwd`
 
 # antiword based on https://github.com/bricel/heroku-buildpack-antiword
 INSTALL_DIR=$BUILD_DIR/vendor/antiword/
-
 ANTIWORD_DIR=${HOME}/vendor/antiword/antiword-0.37
+
+cd $DEFAULT_DIR
 
 echo "Untarring antiword-0.37.tar.gz into ${INSTALL_DIR}"
 
-ls -al
-echo `pwd`
-echo $1
-
 mkdir -p $INSTALL_DIR
-cd $BUILD_DIR
 tar -zxvf antiword-0.37.tar.gz -C $INSTALL_DIR
 cd ${INSTALL_DIR}antiword-0.37
 make
@@ -28,6 +25,8 @@ echo "export PATH=\"${ANTIWORD_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/antiword.s
 
 # pdftotext based on https://github.com/tadas-s/heroku-buildpack-pdftotext
 INSTALL_DIR=$BUILD_DIR/vendor/pdftotext/
+
+cd $DEFAULT_DIR
 
 echo "Copying pdftotext-${STACK} into ${INSTALL_DIR}"
 
@@ -44,6 +43,8 @@ echo "export PATH=\"${INSTALL_DIR}:\$PATH\"" > $BUILD_DIR/.profile.d/pdftotext.s
 VERSION=unrtf-0.21.9
 INSTALL_DIR=$BUILD_DIR/vendor/unrtf/
 UNRTF_DIR=${HOME}/vendor/unrtf/unrtf-0.21.9
+
+cd $DEFAULT_DIR
 
 echo "Untarring unrtf-0.21.9.tar.gz into ${INSTALL_DIR}"
 
