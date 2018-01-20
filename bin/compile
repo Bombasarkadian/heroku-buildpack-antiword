@@ -46,12 +46,12 @@ cd ${UNRTF_DIR}
 aclocal
 automake --add-missing
 autoreconf -ivf
-./configure --prefix=${BIN_DIR}
+./configure --prefix=/app/vendor/bin
 make
 make install
 
 mkdir ${BIN_DIR}/config
-cp -R ${UNRTF_DIR}/share/. ${BIN_DIR}/config
+cp -R ${BIN_DIR}/share/. ${BIN_DIR}/config
 rm -rf ${INSTALL_DIR}
 echo "Complete!"
 
