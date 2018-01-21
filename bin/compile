@@ -6,19 +6,23 @@ TARGET_DIR=$BUILD_DIR/vendor/bin/
 mkdir -p $TARGET_DIR
 
 # antiword based on https://github.com/bricel/heroku-buildpack-antiword
+VERSION="antiword-0.37"
 INSTALL_DIR=$BUILD_DIR/vendor/antiword/
-ANTIWORD_DIR=${HOME}/vendor/antiword/antiword-0.37
+ANTIWORD_DIR=${HOME}/vendor/antiword/${VERSION}
 
 cd $DEFAULT_DIR
 
-echo "Untarring antiword-0.37.tar.gz into ${INSTALL_DIR}"
+echo "Untarring ${VERSION}.tar.gz into ${INSTALL_DIR}"
 
 mkdir -p $INSTALL_DIR
-tar -zxvf antiword-0.37.tar.gz -C $INSTALL_DIR
-cd ${INSTALL_DIR}antiword-0.37
+tar -zxvf ${VERSION}.tar.gz -C $INSTALL_DIR
+cd ${INSTALL_DIR}${VERSION}
 make
 
-cp "${INSTALL_DIR}antiword-0.37/antiword" "${TARGET_DIR}antiword"
+cp "${INSTALL_DIR}${VERSION}/antiword" "${TARGET_DIR}antiword"
+
+mkdir ${BUILD_DIR}/.antiword
+cp "${INSTALL_DIR}${VERSION}/Resources/." "${BUILD_DIR}/.antiword"
 rm -rf ${INSTALL_DIR}
 echo "Complete!"
 
