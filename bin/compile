@@ -22,7 +22,7 @@ make
 cp "${ANTIWORD_DIR}/antiword" "${TARGET_DIR}antiword"
 
 mkdir ${BUILD_DIR}/.antiword/
-cp -vr "${ANTIWORD_DIR}/Resources/" "${BUILD_DIR}/.antiword/"
+cp -vr ${ANTIWORD_DIR}/Resources/* "${BUILD_DIR}/.antiword/"
 rm -rf ${INSTALL_DIR}
 echo "Complete!"
 
