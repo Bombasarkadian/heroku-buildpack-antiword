@@ -16,13 +16,13 @@ echo "Untarring ${VERSION}.tar.gz into ${INSTALL_DIR}"
 
 mkdir -p $INSTALL_DIR
 tar -zxvf ${VERSION}.tar.gz -C $INSTALL_DIR
-cd ${INSTALL_DIR}${VERSION}
+cd ${ANTIWORD_DIR}
 make
 
 cp "${INSTALL_DIR}${VERSION}/antiword" "${TARGET_DIR}antiword"
 
-mkdir ${BUILD_DIR}/.antiword
-cp -r "${INSTALL_DIR}${VERSION}/Resources/*" "${BUILD_DIR}/.antiword"
+mkdir ${BUILD_DIR}/.antiword/
+cp -vr "${ANTIWORD_DIR}/Resources/" "${BUILD_DIR}/.antiword/"
 rm -rf ${INSTALL_DIR}
 echo "Complete!"
 
