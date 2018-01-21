@@ -8,7 +8,7 @@ mkdir -p $TARGET_DIR
 # antiword based on https://github.com/bricel/heroku-buildpack-antiword
 VERSION="antiword-0.37"
 INSTALL_DIR=$BUILD_DIR/vendor/antiword/
-ANTIWORD_DIR=${HOME}/vendor/antiword/${VERSION}
+ANTIWORD_DIR=${INSTALL_DIR}${VERSION}
 
 cd $DEFAULT_DIR
 
@@ -19,7 +19,7 @@ tar -zxvf ${VERSION}.tar.gz -C $INSTALL_DIR
 cd ${ANTIWORD_DIR}
 make
 
-cp "${INSTALL_DIR}${VERSION}/antiword" "${TARGET_DIR}antiword"
+cp "${ANTIWORD_DIR}/antiword" "${TARGET_DIR}antiword"
 
 mkdir ${BUILD_DIR}/.antiword/
 cp -vr "${ANTIWORD_DIR}/Resources/" "${BUILD_DIR}/.antiword/"
